@@ -13,3 +13,4 @@ app.use("/test",(req, res)=>{
 app.listen(3000, ()=>{
     console.log("server is successfully running on port 3000...");//this will printed when server started succesfully
 })// if run,will wait to listen on port 3000
+console.log("yes")
