@@ -8,7 +8,7 @@ const app = express()//calling express function(creating new express js appliact
 
 /*app.use("/hello/2",(req, res)=>{
     res.send("hello hello hello 2") 
-}) */  
+})  
 
 
 app.use("/user",(req, res)=>{
@@ -37,7 +37,12 @@ app.use("/hello",(req, res)=>{
 app.use("/test",(req, res)=>{
     res.send("Hello from server")
 })
+*/
+
 
 app.listen(3000, ()=>{
     console.log("server is successfully running on port 3000...");//this will printed when server started succesfully
-})// if run,will wait to listen on port 3000
+})// if run,will wait to listen on port 3000 
+
+
+
