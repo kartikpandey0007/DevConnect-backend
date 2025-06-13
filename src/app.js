@@ -5,6 +5,7 @@ const User = require("./models/user")
 
 app.use(express.json())
 
+
 app.post("/signup", async (req, res) => {
 
     const user = new User(req.body);
@@ -15,7 +16,8 @@ app.post("/signup", async (req, res) => {
     } catch (err) {
         res.status(400).send("Error saving the user: " + err.message);
     }
-});
+})
+
 
 app.get("/user", async (req,res)=>{
     const userlastName = req.body.lastName
@@ -45,6 +47,7 @@ app.get("/feed", async (req,res)=>{
         res.status(400).send("something went glat!!")
     }
 })
+
 
 app.delete("/user", async (req, res)=>{
     const userId = req.body.userId;
