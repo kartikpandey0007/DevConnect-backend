@@ -4,8 +4,12 @@ const app = express()//calling express function(creating new express js appliact
 const User = require("./models/user")
 const {validateSignUpData} =require("./utils/validation")
 const bcrypt = require("bcrypt")
+const cookieParser = require("cookie-parser")
+const jwt = require("jsonwebtoken")
+const userAuth = require("./middlewares/auth")
 
 app.use(express.json())
+app.use(cookieParser())
 
 
 app.post("/signup", async (req, res) => {
@@ -33,6 +37,7 @@ app.post("/signup", async (req, res) => {
     }
 })
 
+
 app.post("/login", async (req,res) =>{
     try{
         const {emailID, password} = req.body
@@ -43,92 +48,35 @@ app.post("/login", async (req,res) =>{
             throw new Error("Email not valid")
         }
 
-        const isPasswordValid = await bcrypt.compare(password,user.password)
+        const isPasswordValid = await user.validatePassword(password)
+
         if(isPasswordValid){
+            //create a jwt token 
+            const token = await user.getJWT()
+
+            //add the token to cookie and send the response back to the user
+            res.cookie("token",token);
             res.send("login successful")
         }
         else{
             throw new Error("incorrect password")
         }
-    }
-    catch(err){
+    } catch(err){
         res.status(400).send("something went glat!!" + err.message)
     }
 })
 
 
-app.get("/user", async (req,res)=>{
-    const userlastName = req.body.lastName
-
+app.get("/profile", userAuth, async (req,res)=>{
     try{
-        const users = await User.find({lastName:userlastName})
-        if(users.length === 0){
-            res.status(404).send("user not found") 
-        } 
-        else{
-            res.send(users)
-        }
+        const user = req.user
        
+        res.send(user)
     }
     catch(err){
-        res.status(400).send("something went glat!!")
+        res.status(400).send("something went glat!!" + err.message)
     }
 })
-
-
-app.get("/feed", async (req,res)=>{
-    try{
-        const users = await User.find({});
-        res.send(users)
-    }
-    catch(err){
-        res.status(400).send("something went glat!!")
-    }
-})
-
-
-app.delete("/user", async (req, res)=>{
-    const userId = req.body.userId;
-
-    try{
-        //await User.findByIdAndDelete({_id: userId})
-        const user = await User.findByIdAndDelete(userId)
-
-        res.send("user deleted successfully")
-    }catch(err){
-        res.status(400).send("something went glat!!")
-    }
-
-})
-
-
-app.patch("/user/:userId", async (req, res) => {
-  const userId = req.params?.userId;
-  const data = req.body;
-
-  try {
-    const ALLOWED_UPDATES = ["firstName", "lastName",
-        "password"];
-
-    const isUpdateAllowed = Object.keys(data).every((key) =>
-      ALLOWED_UPDATES.includes(key)
-    );
-
-    if (!isUpdateAllowed) {
-      throw new Error("Update not allowed");
-    }
-
-    await User.findByIdAndUpdate(userId, data, {
-      returnDocument: "after",
-      runValidators: true,
-    });
-
-    res.send("User updated!!");
-  } catch (err) {
-    console.error(err); // for debug
-    res.status(400).send("Something went wrong!!");
-  }
-});
 
 
 
