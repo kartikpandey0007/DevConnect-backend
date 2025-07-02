@@ -7,7 +7,7 @@ const {validateSignUpData,validateEditProfileData} =require("../utils/validation
 profileRouter.get("/profile/view", userAuth, async (req,res)=>{
     try{
         const user = req.user
-       
+        
         res.send(user)
     }
     catch(err){

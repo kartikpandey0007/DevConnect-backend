@@ -19,7 +19,7 @@ const userAuth = async (req,res,next)=>{
         throw new Error("User not exist")
     }
 
-    req.user = user;
+    req.user = user; //attached user to req.user
     next();
     }
     catch(err){
