@@ -15,7 +15,7 @@ A RESTful API built with Node.js, Express.js, and MongoDB to power a Tinder-like
    ```
    MONGO_URI=your_mongo_uri
    JWT_SECRET=your_jwt_secret
-   PORT=5000
+   PORT=3000
    ```
 4. `npm start`
 
