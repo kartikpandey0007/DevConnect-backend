@@ -1,6 +1,6 @@
 # Devtinder Backend
 
-A RESTful API built with Node.js, Express.js, and MongoDB to power a Tinder-like platform.
+A RESTful API built with Node.js, Express.js, and MongoDB to power a platform for connecting developers.
 
 ## Features
 - JWT authentication
@@ -17,7 +17,7 @@ A RESTful API built with Node.js, Express.js, and MongoDB to power a Tinder-like
    JWT_SECRET=your_jwt_secret
    PORT=3000
    ```
-4. `npm start`
+4. `npm run dev`
 
 ## License
 MIT
