@@ -1,4 +1,4 @@
-# Devtinder Backend
+# DevConnect Backend
 
 A RESTful API built with Node.js, Express.js, and MongoDB to power a platform for connecting developers.
 
