@@ -2,6 +2,14 @@ const express = require('express');
 const connectDB = require("./config/database")
 const app = express()//calling express function(creating new express js appliaction)-> creating web server
 const cookieParser = require("cookie-parser")
+const cors = require("cors")
+
+app.use(cors({
+    origin: "http://localhost:5173",//frontend url
+     methods: ["GET","POST","PATCH","PUT","DELETE","OPTIONS"],
+    credentials: true, //to allow cookies to be sent
+}))
+
 
 
 app.use(express.json())

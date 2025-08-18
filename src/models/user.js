@@ -43,6 +43,8 @@ const userSchema = new mongoose.Schema({
     },
     photoUrl: {
         type: String,
+        default: "https://www.w3schools.com/howto/img_avatar.png",
+
     },
     about: {
         type: String,
@@ -50,7 +52,6 @@ const userSchema = new mongoose.Schema({
     },
     skills: {
         type: [String],
-        
     }, 
 },{timestamps: true,})
 

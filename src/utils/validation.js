@@ -11,7 +11,7 @@ const validateSignUpData = (req)=>{
         throw new Error("Invalid Email")
     }
     else if(!validator.isStrongPassword(password)){
-        throw new Error("ENter strong pass")   
+        throw new Error("Enter strong pass")   
     }
 }
 

@@ -12,7 +12,7 @@ authRouter.post("/signup", async (req, res) => {
         validateSignUpData(req)
 
         //encrypt password
-        const { firstName, lastName, emailID, password } = req.body;
+        const { firstName, lastName, emailID, password, gender, age, skills, about } = req.body;
         const passwordHash = await bcrypt.hash(password, 10)
 
 
@@ -20,6 +20,10 @@ authRouter.post("/signup", async (req, res) => {
         const user = new User({firstName,
             lastName,
             emailID, 
+            gender,
+            age,
+            about,
+            skills,
             password: passwordHash,
         });
 
@@ -50,13 +54,13 @@ authRouter.post("/login", async (req,res) =>{
 
             //add the token to cookie and send the response back to the user
             res.cookie("token",token);
-            res.send("login successful")
+            res.send(user)
         }
         else{
-            throw new Error("incorrect password")
+            throw new Error("Incorrect Password")
         }
     } catch(err){
-        res.status(400).send("something went glat!!" + err.message)
+        res.status(400).send(err.message);
     }
 })
 

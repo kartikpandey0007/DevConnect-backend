@@ -4,7 +4,7 @@ const  userAuth = require("../middlewares/auth");
 const ConnectionRequest = require("../models/connectionRequest");
 const User = require('../models/user');
 
-const USER_SAFE_DATA = "firstName lastName"
+const USER_SAFE_DATA = "firstName lastName age gender photoUrl about skills"
 
 
 userRouter.get("/user/requests/received", userAuth, async (req,res)=>{
@@ -15,10 +15,9 @@ userRouter.get("/user/requests/received", userAuth, async (req,res)=>{
         const connectionRequest = await ConnectionRequest.find({
             toUserId: loggedInUser._id,
             status: "interested"
-        }).populate("fromUserId", ["firstName", "lastName"])
+        }).populate("fromUserId", USER_SAFE_DATA)
 
         res.json({
-            message:"Data Fetched Successfully",
             data : connectionRequest,
         }) 
     }
@@ -39,7 +38,7 @@ userRouter.get("/user/connections", userAuth, async (req,res)=>{
                 {toUserId: loggedInUser._id,status: "accepted"},
                 {fromUserId: loggedInUser._id,status: "accepted"},
             ]
-        }).populate("fromUserId",USER_SAFE_DATA).populate("toUserId",USER_SAFE_DATA)
+        }).populate("fromUserId", USER_SAFE_DATA).populate("toUserId",USER_SAFE_DATA)
 
         const data = connectionRequest.map((row)=>{
             if(row.fromUserId._id.toString() === loggedInUser._id.toString()){

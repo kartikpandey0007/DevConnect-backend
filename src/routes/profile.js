@@ -1,8 +1,10 @@
 const express = require('express');
-const profileRouter = express.Router();
+const profileRouter = express.Router()
 
 const userAuth = require("../middlewares/auth")
 const {validateSignUpData,validateEditProfileData} =require("../utils/validation")
+
+
 
 profileRouter.get("/profile/view", userAuth, async (req,res)=>{
     try{
@@ -27,7 +29,7 @@ profileRouter.patch("/profile/edit", userAuth, async (req,res)=>{
 
           await user.save()
 
-           res.send("updated sucessfully")
+           res.send(user)
         }
     }
     catch(err){
