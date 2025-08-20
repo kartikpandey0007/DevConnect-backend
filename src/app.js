@@ -5,8 +5,7 @@ const cookieParser = require("cookie-parser")
 const cors = require("cors")
 
 app.use(cors({
-    origin: '*',//frontend url
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], //allowed methods
+    origin: "http://localhost:5173",
     credentials: true, //to allow cookies to be sent
 }))
 
