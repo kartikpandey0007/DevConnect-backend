@@ -45,7 +45,7 @@ authRouter.post("/signup", async (req, res) => {
       data: savedUser,
     });
   } catch (err) {
-    res.status(400).send("Error aaya: " + err.message);
+    res.status(400).send(err.message);
   }
 });
 
