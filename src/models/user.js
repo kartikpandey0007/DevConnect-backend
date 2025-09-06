@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         validate(value){
             if(!validator.isEmail(value)){
-                throw new Error("invalid email" +" "+ value)
+                throw new Error("invalid email")
             }
         }
     },
@@ -59,7 +59,7 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.getJWT = async function () { //dont use arrow function
     const user = this;
 
-    const token = await jwt.sign({_id: user._id}, "DEV@Tinder$790", {expiresIn:"7d"})
+    const token = await jwt.sign({_id: user._id}, process.env.JWT_SECRET, {expiresIn:"7d"})
 
     return token;
 }
