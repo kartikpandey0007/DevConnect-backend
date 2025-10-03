@@ -13,12 +13,13 @@ const getSecretRoomId = (userId, targetUserId) => {
 
 const initializeSocket = (server) => {
   const io = socket(server, {
-    path: "/api/socket.io",   // <-- add this line
+    path: "/api/socket.io",
     cors: {
       origin: "http://localhost:5173",
       methods: ["GET", "POST"],
       credentials: true,
     },
+    transports: ["websocket"], // force ws
   });
 
   io.on("connection", (socket) => {
