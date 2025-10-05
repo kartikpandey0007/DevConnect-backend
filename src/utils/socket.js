@@ -12,14 +12,17 @@ const getSecretRoomId = (userId, targetUserId) => {
 };
 
 const initializeSocket = (server) => {
+  const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+
   const io = socket(server, {
     path: "/api/socket.io",
     cors: {
-      origin: "http://localhost:5173",
+      origin: FRONTEND_URL,
       methods: ["GET", "POST"],
       credentials: true,
     },
-    transports: ["websocket"], // force ws
+    // allow websocket and polling fallback so it works behind proxies/loadbalancers
+    transports: ["websocket", "polling"],
   });
 
   io.on("connection", (socket) => {
